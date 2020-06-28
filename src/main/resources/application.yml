@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: myspringboot #eureka服务端起个名字
   datasource:
     username: root
     password: password
@@ -25,3 +27,12 @@ mybatis:
   mapperLocations: classpath:mapping/*.xml
   config-location: classpath:mybatis-config.xml
   typeAliasesPackage: com.yuhaisheng.github.entity
+
+server:
+  port: 8762 #修改端口号
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+

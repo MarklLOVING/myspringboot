@@ -1,10 +1,11 @@
 package com.yuhaisheng.github.controller;
+
 import com.yuhaisheng.github.service.serviceimpl.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 
 @RestController
@@ -17,13 +18,26 @@ public class TestController {
     @Autowired
     ProjectService projectService;
 
-    @GetMapping("/1111")
-    public String getWay(){
-        return projectService.getUerNameBy("1");
+    @Value("${server.port}")
+    String port;
+
+    @PostMapping("/1111")
+    public String getWay(@RequestParam String name) {
+        System.out.println("name = " + name + "port = " + port);
+        return "name = " + name + "port = " + port;
     }
+
     @GetMapping("/2222")
-    public String get11y(){
+    public String get11y(@RequestParam String name) {
+        System.out.println("applicationContext = An");
+        return "applicationContext = An";
+    }
+
+    @GetMapping("/restTest")
+    public String restTest() {
+        RestTemplate restTemplate = new RestTemplate();
+        String forObject = restTemplate.getForObject("https://www.baidu.com/", String.class);
         System.out.println("applicationContext = ");
-        return "successfully";
+        return forObject;
     }
 }
